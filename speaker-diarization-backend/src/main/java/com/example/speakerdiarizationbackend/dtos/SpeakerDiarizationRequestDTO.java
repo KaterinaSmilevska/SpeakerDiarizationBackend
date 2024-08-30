@@ -1,7 +1,6 @@
 package com.example.speakerdiarizationbackend.dtos;
 
 import lombok.*;
-import org.springframework.web.multipart.MultipartFile;
 
 @Data
 @AllArgsConstructor
@@ -9,13 +8,13 @@ import org.springframework.web.multipart.MultipartFile;
 @Getter
 @Setter
 public class SpeakerDiarizationRequestDTO {
-    MultipartFile audioFile;
+    AudioFileDTO audioFile;
 
-    public MultipartFile getAudioFile() {
+    public AudioFileDTO getAudioFileDTO() {
         return audioFile;
     }
 
-    public void setAudioFile(MultipartFile audioFile) {
+    public void setAudioFileDTO(AudioFileDTO audioFile) {
         this.audioFile = audioFile;
     }
 }

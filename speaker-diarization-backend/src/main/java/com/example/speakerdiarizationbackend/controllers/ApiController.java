@@ -1,5 +1,6 @@
 package com.example.speakerdiarizationbackend.controllers;
 
+import com.example.speakerdiarizationbackend.dtos.AudioFileDTO;
 import com.example.speakerdiarizationbackend.dtos.SpeakerDiarizationRequestDTO;
 import com.example.speakerdiarizationbackend.dtos.SpeakerDiarizationResponseDTO;
 import com.example.speakerdiarizationbackend.services.ApiService;
@@ -22,10 +23,13 @@ public class ApiController {
         this.apiService = apiService;
     }
 
-    @PostMapping(consumes = { MediaType.MULTIPART_FORM_DATA_VALUE })
-    public Mono<ResponseEntity<SpeakerDiarizationResponseDTO>> getSpeakers(@RequestPart MultipartFile audioFile) {
+    @PostMapping(value = {"/fileName"}, consumes = { MediaType.MULTIPART_FORM_DATA_VALUE })
+    public Mono<ResponseEntity<SpeakerDiarizationResponseDTO>> getSpeakers(@PathVariable String fileName, @RequestPart MultipartFile audioFile) {
+        AudioFileDTO audioFileDTO = new AudioFileDTO();
+        audioFileDTO.setAudioFile(audioFile);
+
         SpeakerDiarizationRequestDTO requestDTO = new SpeakerDiarizationRequestDTO();
-        requestDTO.setAudioFile(audioFile);
+        requestDTO.setAudioFile(audioFileDTO);
         try {
             return apiService.getAll(requestDTO);
         } catch (IOException e) {
