@@ -23,13 +23,14 @@ public class ApiController {
         this.apiService = apiService;
     }
 
-    @PostMapping(value = {"/fileName"}, consumes = { MediaType.MULTIPART_FORM_DATA_VALUE })
+    @PostMapping(value = "/{fileName}", consumes = { MediaType.MULTIPART_FORM_DATA_VALUE })
     public Mono<ResponseEntity<SpeakerDiarizationResponseDTO>> getSpeakers(@PathVariable String fileName, @RequestPart MultipartFile audioFile) {
         AudioFileDTO audioFileDTO = new AudioFileDTO();
         audioFileDTO.setAudioFile(audioFile);
+        audioFileDTO.setFileName(fileName);
 
         SpeakerDiarizationRequestDTO requestDTO = new SpeakerDiarizationRequestDTO();
-        requestDTO.setAudioFile(audioFileDTO);
+        requestDTO.setAudioFileDTO(audioFileDTO);
         try {
             return apiService.getAll(requestDTO);
         } catch (IOException e) {
