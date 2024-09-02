@@ -26,10 +26,11 @@ public class ApiService {
     public Mono<ResponseEntity<SpeakerDiarizationResponseDTO>> getAll(SpeakerDiarizationRequestDTO requestDTO) throws IOException {
 
         MultiValueMap<String, Object> body = new LinkedMultiValueMap<>();
-        body.add("audioFile", requestDTO.getAudioFile().getResource());
+        String fileName = requestDTO.getAudioFileDTO().getFileName();
+        body.add("audioFile", requestDTO.getAudioFileDTO().getAudioFile().getResource());
 
         return webClient.post()
-                .uri("/speakers")
+                .uri("/speakers/%s", fileName)
                 .contentType(MediaType.MULTIPART_FORM_DATA)
                 .body(BodyInserters.fromMultipartData(body))
                 .retrieve()
