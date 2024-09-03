@@ -30,7 +30,7 @@ public class ApiService {
         body.add("audioFile", requestDTO.getAudioFileDTO().getAudioFile().getResource());
 
         return webClient.post()
-                .uri("/speakers/%s", fileName)
+                .uri("/speakers/{fileName}", fileName)
                 .contentType(MediaType.MULTIPART_FORM_DATA)
                 .body(BodyInserters.fromMultipartData(body))
                 .retrieve()
