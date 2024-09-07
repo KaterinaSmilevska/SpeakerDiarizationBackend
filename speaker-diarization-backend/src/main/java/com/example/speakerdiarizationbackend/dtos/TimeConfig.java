@@ -9,7 +9,7 @@ import java.time.format.DateTimeFormatter;
 
 @Configuration
 public class TimeConfig {
-    private static final String timeFormat = "mm:ss";
+    private static final String timeFormat = "HH:mm:ss";
 
     @Bean
     public Jackson2ObjectMapperBuilderCustomizer jsonCustomizer() {
